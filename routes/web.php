@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    $posts = App\Models\Post::all();
+    return view('home', compact('posts'));
+});
+
+
+
+Route::get('post/{slug}', function($slug){
+	$post = App\Models\Post::where('slug', '=', $slug)->firstOrFail();
+	return view('post', compact('post'));
 });
 
 
